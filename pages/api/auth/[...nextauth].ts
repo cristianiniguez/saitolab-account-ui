@@ -21,14 +21,8 @@ const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {
-          type: 'email',
-          required: true,
-        },
-        password: {
-          type: 'password',
-          required: true,
-        },
+        email: { type: 'email', required: true },
+        password: { type: 'password', required: true },
       },
       authorize: async (credentials) => {
         if (!credentials) return null;
@@ -42,8 +36,11 @@ const options: NextAuthOptions = {
           },
         );
         const { access_token, user } = data;
-        console.log(data);
-        return { ...user, accessToken: access_token };
+        return {
+          ...user,
+          accessToken: access_token,
+          name: `${user.firstName} ${user.lastName}`,
+        };
       },
     }),
   ],
