@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { signIn } from 'next-auth/react';
 import { Box, Checkbox, Stack, Button, useColorModeValue, Link } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
@@ -12,8 +13,12 @@ type SignInFormValues = {
 type SignInFormConfig = FormikConfig<SignInFormValues>;
 
 class SignInForm extends Component {
-  handleSubmit: SignInFormConfig['onSubmit'] = (values) => {
-    console.log(values);
+  handleSubmit: SignInFormConfig['onSubmit'] = async (values) => {
+    try {
+      await signIn('credentials', values);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   getInitialValues(): SignInFormConfig['initialValues'] {

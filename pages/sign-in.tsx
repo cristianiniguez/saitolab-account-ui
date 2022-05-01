@@ -1,6 +1,25 @@
+import { getSession } from 'next-auth/react';
 import { Flex, Stack, Link, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 import SignInForm from '../components/form/SignInForm';
+import { GetServerSideProps } from 'next';
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const SignInPage = () => {
   return (
