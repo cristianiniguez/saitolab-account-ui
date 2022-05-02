@@ -26,21 +26,27 @@ const options: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         if (!credentials) return null;
-
         const { email, password } = credentials;
-        const { data } = await axios.post<SignInApiResponse>(
-          `${process.env.API_HOST}/auth/sign-in`,
-          null,
-          {
-            auth: { username: email, password },
-          },
-        );
-        const { access_token, user } = data;
-        return {
-          ...user,
-          accessToken: access_token,
-          name: `${user.firstName} ${user.lastName}`,
-        };
+
+        try {
+          const { data } = await axios.post<SignInApiResponse>(
+            `${process.env.API_HOST}/auth/sign-in`,
+            null,
+            {
+              auth: { username: email, password },
+            },
+          );
+          const { access_token, user } = data;
+          return {
+            ...user,
+            accessToken: access_token,
+            name: `${user.firstName} ${user.lastName}`,
+          };
+        } catch (error) {
+          console.error(error);
+          throw new Error('Invalid credentials');
+          return null;
+        }
       },
     }),
   ],
