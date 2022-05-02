@@ -1,22 +1,35 @@
 import { Component } from 'react';
+import { NextRouter, withRouter } from 'next/router';
 import { Box, HStack, Stack, Button, Text, useColorModeValue } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
 import { EmailInput, TextInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
+import { SignUpPayload } from '../../types/api';
+import { signInRequest, signUpRequest } from '../../utils/request/auth';
 
-type SignUpFormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+type SignUpFormProps = {
+  router: NextRouter;
 };
 
+type SignUpFormValues = SignUpPayload;
 type SignUpFormConfig = FormikConfig<SignUpFormValues>;
 
-class SignUpForm extends Component {
-  handleSubmit: SignUpFormConfig['onSubmit'] = (values) => {
-    console.log(values);
+class SignUpForm extends Component<SignUpFormProps> {
+  handleSubmit: SignUpFormConfig['onSubmit'] = async (values, { setStatus, setSubmitting }) => {
+    const { router } = this.props;
+    setStatus({ error: null });
+
+    try {
+      const { email } = await signUpRequest(values);
+      await signInRequest({ email, password: values.password });
+      router.push('/dashboard');
+    } catch (error) {
+      console.error(error);
+      setStatus({ error: error.message });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   getInitialValues(): SignUpFormConfig['initialValues'] {
@@ -30,7 +43,11 @@ class SignUpForm extends Component {
 
   render() {
     return (
-      <Formik initialValues={this.getInitialValues()} onSubmit={this.handleSubmit}>
+      <Formik
+        initialStatus={{ error: null }}
+        initialValues={this.getInitialValues()}
+        onSubmit={this.handleSubmit}
+      >
         {() => (
           <Form>
             <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
@@ -72,4 +89,4 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm;
+export default withRouter(SignUpForm);

@@ -7,6 +7,7 @@ import { Form, Formik, FormikConfig } from 'formik';
 import { EmailInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
 import * as C from '../../constants';
+import { signInRequest } from '../../utils/request/auth';
 
 type SignInFormProps = {
   router: NextRouter;
@@ -22,16 +23,14 @@ type SignInFormConfig = FormikConfig<SignInFormValues>;
 class SignInForm extends Component<SignInFormProps> {
   handleSubmit: SignInFormConfig['onSubmit'] = async (values, { setStatus, setSubmitting }) => {
     const { router } = this.props;
+    setStatus({ error: null });
 
     try {
-      const response = await signIn<'credentials'>('credentials', { ...values, redirect: false });
-
-      if (!response) return setStatus({ error: C.UNKNOWN_ERROR });
-      if (response.error) return setStatus({ error: response.error });
-
+      await signInRequest(values);
       router.push('/dashboard');
     } catch (error) {
       console.error(error);
+      setStatus({ error: error.message });
     } finally {
       setSubmitting(false);
     }
