@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { NextRouter, withRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon } from '@chakra-ui/react';
+import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon, Text } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
 import { EmailInput, PasswordInput } from '../inputs';
+import Link from '../others/Link';
 import * as C from '../../constants';
 
 type SignInFormProps = {
@@ -81,6 +82,12 @@ class SignInForm extends Component<SignInFormProps> {
                 >
                   Sign in
                 </Button>
+                <Text align='center'>
+                  Don't have an account?{' '}
+                  <Link href='/sign-up' color='green'>
+                    Enroll
+                  </Link>
+                </Text>
               </Stack>
             </Box>
           </Form>

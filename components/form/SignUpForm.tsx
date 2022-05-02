@@ -1,8 +1,9 @@
 import { Component } from 'react';
-import { Box, HStack, Stack, Button, Text, useColorModeValue, Link } from '@chakra-ui/react';
+import { Box, HStack, Stack, Button, Text, useColorModeValue } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
 import { EmailInput, TextInput, PasswordInput } from '../inputs';
+import Link from '../others/Link';
 
 type SignUpFormValues = {
   firstName: string;
@@ -44,25 +45,24 @@ class SignUpForm extends Component {
                 </HStack>
                 <EmailInput isRequired label='Email Address' />
                 <PasswordInput label='Password' />
-                <Stack spacing={10} pt={2}>
-                  <Button
-                    type='submit'
-                    loadingText='Submitting'
-                    size='lg'
-                    bg={'blue.400'}
-                    color='white'
-                    _hover={{
-                      bg: 'blue.500',
-                    }}
-                  >
-                    Sign up
-                  </Button>
-                </Stack>
-                <Stack pt={6}>
-                  <Text align='center'>
-                    Already a user? <Link color={'blue.400'}>Login</Link>
-                  </Text>
-                </Stack>
+                <Button
+                  type='submit'
+                  loadingText='Submitting'
+                  size='lg'
+                  bg={'blue.400'}
+                  color='white'
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                >
+                  Sign up
+                </Button>
+                <Text align='center'>
+                  Already a user?{' '}
+                  <Link color='green' href='/sign-in'>
+                    Login
+                  </Link>
+                </Text>
               </Stack>
             </Box>
           </Form>
