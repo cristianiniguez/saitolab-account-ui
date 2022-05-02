@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 
 import { SignInApiResponse } from '../../../types/api';
+import { INVALID_CREDENTIALS_ERROR } from '../../../constants';
 
 const options: NextAuthOptions = {
   callbacks: {
@@ -44,8 +45,7 @@ const options: NextAuthOptions = {
           };
         } catch (error) {
           console.error(error);
-          throw new Error('Invalid credentials');
-          return null;
+          throw new Error(INVALID_CREDENTIALS_ERROR);
         }
       },
     }),
