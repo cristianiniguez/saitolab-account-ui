@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 
 import { SignInApiResponse } from '../../../types/api';
-import { INVALID_CREDENTIALS_ERROR } from '../../../constants';
+import { INVALID_CREDENTIALS_ERROR, ROUTES } from '../../../constants';
 
 const options: NextAuthOptions = {
   callbacks: {
@@ -17,7 +17,7 @@ const options: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/sign-in',
+    signIn: ROUTES.SIGN_IN,
   },
   providers: [
     CredentialsProvider({

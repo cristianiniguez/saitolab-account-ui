@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { getSession, signOut, useSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import { Button } from '@chakra-ui/react';
+
+import { ROUTES } from '../constants';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -9,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/sign-in',
+        destination: ROUTES.SIGN_IN,
         permanent: false,
       },
     };

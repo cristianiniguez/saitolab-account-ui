@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { NextRouter, withRouter } from 'next/router';
-import { signIn } from 'next-auth/react';
 import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon, Text } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
@@ -27,7 +26,7 @@ class SignInForm extends Component<SignInFormProps> {
 
     try {
       await signInRequest(values);
-      router.push('/dashboard');
+      router.push(C.ROUTES.DASHBOARD);
     } catch (error) {
       console.error(error);
       setStatus({ error: error.message });
@@ -83,7 +82,7 @@ class SignInForm extends Component<SignInFormProps> {
                 </Button>
                 <Text align='center'>
                   Don't have an account?{' '}
-                  <Link href='/sign-up' color='green'>
+                  <Link href={C.ROUTES.SIGN_UP} color='green'>
                     Enroll
                   </Link>
                 </Text>

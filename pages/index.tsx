@@ -1,11 +1,13 @@
 import { Box, Button, Center, Heading, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
+import { ROUTES } from '../constants';
+
 export default function Home() {
   const router = useRouter();
 
-  const goToSignInPage = () => router.push('/sign-in');
-  const goToSignUpPage = () => router.push('/sign-up');
+  const goToSignInPage = () => router.push(ROUTES.SIGN_IN);
+  const goToSignUpPage = () => router.push(ROUTES.SIGN_UP);
 
   return (
     <Center h='100vh'>

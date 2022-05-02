@@ -7,6 +7,7 @@ import { EmailInput, TextInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
 import { SignUpPayload } from '../../types/api';
 import { signInRequest, signUpRequest } from '../../utils/request/auth';
+import { ROUTES } from '../../constants';
 
 type SignUpFormProps = {
   router: NextRouter;
@@ -23,7 +24,7 @@ class SignUpForm extends Component<SignUpFormProps> {
     try {
       const { email } = await signUpRequest(values);
       await signInRequest({ email, password: values.password });
-      router.push('/dashboard');
+      router.push(ROUTES.DASHBOARD);
     } catch (error) {
       console.error(error);
       setStatus({ error: error.message });
@@ -76,7 +77,7 @@ class SignUpForm extends Component<SignUpFormProps> {
                 </Button>
                 <Text align='center'>
                   Already a user?{' '}
-                  <Link color='green' href='/sign-in'>
+                  <Link color='green' href={ROUTES.SIGN_IN}>
                     Login
                   </Link>
                 </Text>

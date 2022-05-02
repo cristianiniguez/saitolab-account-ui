@@ -1,8 +1,9 @@
+import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Flex, Stack, Link, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 import SignInForm from '../components/form/SignInForm';
-import { GetServerSideProps } from 'next';
+import { ROUTES } from '../constants';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -10,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (session?.user) {
     return {
       redirect: {
-        destination: '/dashboard',
+        destination: ROUTES.DASHBOARD,
         permanent: false,
       },
     };
