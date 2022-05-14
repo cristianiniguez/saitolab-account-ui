@@ -6,9 +6,10 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "sort-destructure-keys"],
   "root": true,
   "rules": {
-    "sort-keys": "error"
+    "sort-keys": "error",
+    "sort-destructure-keys/sort-destructure-keys": "error"
   }
 }
