@@ -3,6 +3,7 @@ import { getSession, signOut } from 'next-auth/react';
 import { Button } from '@chakra-ui/react';
 
 import { ROUTES } from '../constants';
+import Layout from '../components/others/Layout';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -25,9 +26,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 const DashboardPage = () => {
   return (
-    <div>
+    <Layout title='Dashboard'>
       <Button onClick={() => signOut()}>Sign Out</Button>
-    </div>
+    </Layout>
   );
 };
 
