@@ -52,45 +52,46 @@ class SignInForm extends Component<SignInFormProps> {
     }
   }
 
+  renderForm: SignInFormConfig['component'] = ({ isSubmitting, status }) => (
+    <Form>
+      <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
+        <Stack spacing={4}>
+          <EmailInput isRequired label='Email Address' />
+          <PasswordInput label='Password' />
+          {status.error && (
+            <Alert status='error'>
+              <AlertIcon />
+              {this.getFormErrorMessage(status.error)}
+            </Alert>
+          )}
+          <Button
+            isLoading={isSubmitting}
+            type='submit'
+            bg='blue.400'
+            color='white'
+            _hover={{ bg: 'blue.500' }}
+          >
+            Sign in
+          </Button>
+          <Text align='center'>
+            Don't have an account?{' '}
+            <Link href={C.ROUTES.SIGN_UP} color='green'>
+              Enroll
+            </Link>
+          </Text>
+        </Stack>
+      </Box>
+    </Form>
+  );
+
   render() {
     return (
       <Formik
         initialValues={this.getInitialValues()}
         onSubmit={this.handleSubmit}
         initialStatus={{ error: null }}
-      >
-        {({ isSubmitting, status }) => (
-          <Form>
-            <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
-              <Stack spacing={4}>
-                <EmailInput isRequired label='Email Address' />
-                <PasswordInput label='Password' />
-                {status.error && (
-                  <Alert status='error'>
-                    <AlertIcon />
-                    {this.getFormErrorMessage(status.error)}
-                  </Alert>
-                )}
-                <Button
-                  isLoading={isSubmitting}
-                  type='submit'
-                  bg='blue.400'
-                  color='white'
-                  _hover={{ bg: 'blue.500' }}
-                >
-                  Sign in
-                </Button>
-                <Text align='center'>
-                  Don't have an account?{' '}
-                  <Link href={C.ROUTES.SIGN_UP} color='green'>
-                    Enroll
-                  </Link>
-                </Text>
-              </Stack>
-            </Box>
-          </Form>
-        )}
-      </Formik>
+        component={this.renderForm}
+      />
     );
   }
 }

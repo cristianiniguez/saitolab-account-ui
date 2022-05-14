@@ -42,50 +42,50 @@ class SignUpForm extends Component<SignUpFormProps> {
     };
   }
 
+  renderForm: SignUpFormConfig['component'] = ({ isSubmitting }) => (
+    <Form>
+      <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
+        <Stack spacing={4}>
+          <HStack>
+            <Box>
+              <TextInput id='firstName' isRequired label='First Name' name='firstName' />
+            </Box>
+            <Box>
+              <TextInput id='lastName' isRequired label='Last Name' name='lastName' />
+            </Box>
+          </HStack>
+          <EmailInput isRequired label='Email Address' />
+          <PasswordInput label='Password' />
+          <Button
+            isLoading={isSubmitting}
+            type='submit'
+            loadingText='Enrolling ...'
+            size='lg'
+            bg={'blue.400'}
+            color='white'
+            _hover={{ bg: 'blue.500' }}
+          >
+            Sign up
+          </Button>
+          <Text align='center'>
+            Already a user?{' '}
+            <Link color='green' href={ROUTES.SIGN_IN}>
+              Login
+            </Link>
+          </Text>
+        </Stack>
+      </Box>
+    </Form>
+  );
+
   render() {
     return (
       <Formik
         initialStatus={{ error: null }}
         initialValues={this.getInitialValues()}
         onSubmit={this.handleSubmit}
-      >
-        {() => (
-          <Form>
-            <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
-              <Stack spacing={4}>
-                <HStack>
-                  <Box>
-                    <TextInput id='firstName' isRequired label='First Name' name='firstName' />
-                  </Box>
-                  <Box>
-                    <TextInput id='lastName' isRequired label='Last Name' name='lastName' />
-                  </Box>
-                </HStack>
-                <EmailInput isRequired label='Email Address' />
-                <PasswordInput label='Password' />
-                <Button
-                  type='submit'
-                  loadingText='Submitting'
-                  size='lg'
-                  bg={'blue.400'}
-                  color='white'
-                  _hover={{
-                    bg: 'blue.500',
-                  }}
-                >
-                  Sign up
-                </Button>
-                <Text align='center'>
-                  Already a user?{' '}
-                  <Link color='green' href={ROUTES.SIGN_IN}>
-                    Login
-                  </Link>
-                </Text>
-              </Stack>
-            </Box>
-          </Form>
-        )}
-      </Formik>
+        component={this.renderForm}
+      />
     );
   }
 }
