@@ -83,7 +83,7 @@ class SignInForm extends Component<SignInFormProps> {
             Sign in
           </Button>
           <Text align='center'>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href={C.ROUTES.SIGN_UP} color='green'>
               Enroll
             </Link>
