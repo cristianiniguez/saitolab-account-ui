@@ -8,7 +8,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react';
-import { Field } from 'formik';
+import { useField } from 'formik';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 type PasswordInputProps = {
@@ -24,27 +24,23 @@ const PasswordInput: FC<PasswordInputProps> = ({
   label,
   name = 'password',
 }) => {
+  const [field] = useField(name);
   const [showPassword, setShowPassword] = useState(false);
 
+  const switchShowPassword = () => setShowPassword((showPassword) => !showPassword);
+
   return (
-    <Field name={name}>
-      {({ field }) => (
-        <FormControl id={id} isRequired={isRequired}>
-          <FormLabel>{label}</FormLabel>
-          <InputGroup>
-            <Input {...field} type={showPassword ? 'text' : 'password'} />
-            <InputRightElement h='full'>
-              <Button
-                variant='ghost'
-                onClick={() => setShowPassword((showPassword) => !showPassword)}
-              >
-                <Icon as={showPassword ? FiEye : FiEyeOff} />
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-      )}
-    </Field>
+    <FormControl id={id} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
+      <InputGroup>
+        <Input {...field} type={showPassword ? 'text' : 'password'} />
+        <InputRightElement h='full'>
+          <Button variant='ghost' onClick={switchShowPassword}>
+            <Icon as={showPassword ? FiEye : FiEyeOff} />
+          </Button>
+        </InputRightElement>
+      </InputGroup>
+    </FormControl>
   );
 };
 

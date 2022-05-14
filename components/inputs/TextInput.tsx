@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
-import { Field } from 'formik';
+import { useField } from 'formik';
 
 type TextInputProps = {
   id: string;
@@ -10,15 +10,13 @@ type TextInputProps = {
 };
 
 const TextInput: FC<TextInputProps> = ({ id, isRequired = false, label, name }) => {
+  const [field] = useField(name);
+
   return (
-    <Field name={name}>
-      {({ field }) => (
-        <FormControl id={id} isRequired={isRequired}>
-          <FormLabel>{label}</FormLabel>
-          <Input {...field} type='text' />
-        </FormControl>
-      )}
-    </Field>
+    <FormControl id={id} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
+      <Input {...field} type='text' />
+    </FormControl>
   );
 };
 

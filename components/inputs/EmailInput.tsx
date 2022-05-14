@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
-import { Field } from 'formik';
+import { useField } from 'formik';
 
 type EmailInputProps = {
   id?: string;
@@ -15,15 +15,13 @@ const EmailInput: FC<EmailInputProps> = ({
   label,
   name = 'email',
 }) => {
+  const [field] = useField(name);
+
   return (
-    <Field name={name}>
-      {({ field }) => (
-        <FormControl id={id} isRequired={isRequired}>
-          <FormLabel>{label}</FormLabel>
-          <Input {...field} type='email' />
-        </FormControl>
-      )}
-    </Field>
+    <FormControl id={id} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
+      <Input {...field} type='email' />
+    </FormControl>
   );
 };
 
