@@ -21,11 +21,7 @@ const options: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      credentials: {
-        email: { type: 'email', required: true },
-        password: { type: 'password', required: true },
-      },
-      authorize: async (credentials) => {
+      authorize: async credentials => {
         if (!credentials) return null;
         const { email, password } = credentials;
 
@@ -34,7 +30,7 @@ const options: NextAuthOptions = {
             `${API_URL}${API_ROUTES.SIGN_IN}`,
             null,
             {
-              auth: { username: email, password },
+              auth: { password, username: email },
             },
           );
           const { access_token, user } = data;
@@ -47,6 +43,10 @@ const options: NextAuthOptions = {
           console.error(error);
           throw new Error(INVALID_CREDENTIALS_ERROR);
         }
+      },
+      credentials: {
+        email: { required: true, type: 'email' },
+        password: { require: true, type: 'password' },
       },
     }),
   ],
