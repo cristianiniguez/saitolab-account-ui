@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 import { Flex, Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Layout from '../components/others/Layout';
-import SignUpForm from '../components/form/SignUpForm';
+import SignUpForm from '../components/forms/SignUpForm';
 import { ROUTES } from '../constants';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
