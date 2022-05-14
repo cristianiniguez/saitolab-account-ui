@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   useBoolean,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useField } from 'formik';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -25,11 +26,11 @@ const PasswordInput: FC<PasswordInputProps> = ({
   label,
   name = 'password',
 }) => {
-  const [field] = useField(name);
+  const [field, meta] = useField(name);
   const [showPassword, setShowPassword] = useBoolean();
 
   return (
-    <FormControl id={id} isRequired={isRequired}>
+    <FormControl id={id} isRequired={isRequired} isInvalid={meta.touched && !!meta.error}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input {...field} type={showPassword ? 'text' : 'password'} />
@@ -39,6 +40,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
           </Button>
         </InputRightElement>
       </InputGroup>
+      <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
   );
 };

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { NextRouter, withRouter } from 'next/router';
 import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon, Text } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
+import * as Yup from 'yup';
 
 import { EmailInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
@@ -41,6 +42,13 @@ class SignInForm extends Component<SignInFormProps> {
       email: '',
       password: '',
     };
+  }
+
+  getValidationSchema(): SignInFormConfig['validationSchema'] {
+    return Yup.object().shape({
+      email: Yup.string().email('Invalid email').required('Email is required'),
+      password: Yup.string().required('Password is required'),
+    });
   }
 
   getFormErrorMessage(error: string) {
@@ -88,10 +96,11 @@ class SignInForm extends Component<SignInFormProps> {
   render() {
     return (
       <Formik
+        component={this.renderForm}
+        initialStatus={{ error: null }}
         initialValues={this.getInitialValues()}
         onSubmit={this.handleSubmit}
-        initialStatus={{ error: null }}
-        component={this.renderForm}
+        validationSchema={this.getValidationSchema()}
       />
     );
   }

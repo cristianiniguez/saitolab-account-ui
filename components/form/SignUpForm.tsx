@@ -11,6 +11,7 @@ import {
   AlertIcon,
 } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
+import * as Yup from 'yup';
 
 import { EmailInput, TextInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
@@ -52,6 +53,15 @@ class SignUpForm extends Component<SignUpFormProps> {
     };
   }
 
+  getValidationSchema(): SignUpFormConfig['validationSchema'] {
+    return Yup.object().shape({
+      firstName: Yup.string().required('First name is required'),
+      lastName: Yup.string().required('Last name is required'),
+      email: Yup.string().email('Invalid email').required('Email is required'),
+      password: Yup.string().required('Password is required'),
+    });
+  }
+
   getFormErrorMessage(error: string) {
     switch (error) {
       case C.INVALID_CREDENTIALS_ERROR:
@@ -66,7 +76,7 @@ class SignUpForm extends Component<SignUpFormProps> {
     <Form>
       <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
         <Stack spacing={4}>
-          <HStack>
+          <HStack alignItems='start'>
             <Box>
               <TextInput id='firstName' isRequired label='First Name' name='firstName' />
             </Box>
@@ -107,10 +117,11 @@ class SignUpForm extends Component<SignUpFormProps> {
   render() {
     return (
       <Formik
+        component={this.renderForm}
         initialStatus={{ error: null }}
         initialValues={this.getInitialValues()}
         onSubmit={this.handleSubmit}
-        component={this.renderForm}
+        validationSchema={this.getValidationSchema()}
       />
     );
   }
