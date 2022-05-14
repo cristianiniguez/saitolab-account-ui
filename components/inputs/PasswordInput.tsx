@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import {
   Button,
   Icon,
@@ -7,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useBoolean,
 } from '@chakra-ui/react';
 import { useField } from 'formik';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -25,9 +26,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
   name = 'password',
 }) => {
   const [field] = useField(name);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const switchShowPassword = () => setShowPassword((showPassword) => !showPassword);
+  const [showPassword, setShowPassword] = useBoolean();
 
   return (
     <FormControl id={id} isRequired={isRequired}>
@@ -35,7 +34,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
       <InputGroup>
         <Input {...field} type={showPassword ? 'text' : 'password'} />
         <InputRightElement h='full'>
-          <Button variant='ghost' onClick={switchShowPassword}>
+          <Button variant='ghost' onClick={setShowPassword.toggle}>
             <Icon as={showPassword ? FiEye : FiEyeOff} />
           </Button>
         </InputRightElement>
