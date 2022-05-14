@@ -10,6 +10,7 @@
   "plugins": ["@typescript-eslint", "sort-destructure-keys", "sonarjs"],
   "root": true,
   "rules": {
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "sort-keys": "error",
     "sort-destructure-keys/sort-destructure-keys": "error"
   }
