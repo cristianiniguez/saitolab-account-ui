@@ -7,6 +7,7 @@ import { EmailInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
 import * as C from '../../constants';
 import { signInRequest } from '../../utils/request/auth';
+import { getErrorMessage } from '../../utils/others/errors';
 
 type SignInFormProps = {
   router: NextRouter;
@@ -27,9 +28,9 @@ class SignInForm extends Component<SignInFormProps> {
     try {
       await signInRequest(values);
       router.push(C.ROUTES.DASHBOARD);
-    } catch (error) {
-      console.error(error);
-      setStatus({ error: error.message });
+    } catch (e) {
+      console.error(e);
+      setStatus({ error: getErrorMessage(e) });
     } finally {
       setSubmitting(false);
     }

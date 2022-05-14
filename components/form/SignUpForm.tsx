@@ -1,13 +1,23 @@
 import { Component } from 'react';
 import { NextRouter, withRouter } from 'next/router';
-import { Box, HStack, Stack, Button, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  Stack,
+  Button,
+  Text,
+  useColorModeValue,
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 
 import { EmailInput, TextInput, PasswordInput } from '../inputs';
 import Link from '../others/Link';
 import { SignUpPayload } from '../../types/api';
 import { signInRequest, signUpRequest } from '../../utils/request/auth';
-import { ROUTES } from '../../constants';
+import { getErrorMessage } from '../../utils/others/errors';
+import * as C from '../../constants';
 
 type SignUpFormProps = {
   router: NextRouter;
@@ -24,10 +34,10 @@ class SignUpForm extends Component<SignUpFormProps> {
     try {
       const { email } = await signUpRequest(values);
       await signInRequest({ email, password: values.password });
-      router.push(ROUTES.DASHBOARD);
-    } catch (error) {
-      console.error(error);
-      setStatus({ error: error.message });
+      router.push(C.ROUTES.DASHBOARD);
+    } catch (e) {
+      console.error(e);
+      setStatus({ error: getErrorMessage(e) });
     } finally {
       setSubmitting(false);
     }
@@ -42,7 +52,17 @@ class SignUpForm extends Component<SignUpFormProps> {
     };
   }
 
-  renderForm: SignUpFormConfig['component'] = ({ isSubmitting }) => (
+  getFormErrorMessage(error: string) {
+    switch (error) {
+      case C.INVALID_CREDENTIALS_ERROR:
+        return 'Invalid credentials';
+      case C.UNKNOWN_ERROR:
+      default:
+        return 'An unknown error occurred';
+    }
+  }
+
+  renderForm: SignUpFormConfig['component'] = ({ isSubmitting, status }) => (
     <Form>
       <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
         <Stack spacing={4}>
@@ -56,6 +76,12 @@ class SignUpForm extends Component<SignUpFormProps> {
           </HStack>
           <EmailInput isRequired label='Email Address' />
           <PasswordInput label='Password' />
+          {status.error && (
+            <Alert status='error'>
+              <AlertIcon />
+              {this.getFormErrorMessage(status.error)}
+            </Alert>
+          )}
           <Button
             isLoading={isSubmitting}
             type='submit'
@@ -69,7 +95,7 @@ class SignUpForm extends Component<SignUpFormProps> {
           </Button>
           <Text align='center'>
             Already a user?{' '}
-            <Link color='green' href={ROUTES.SIGN_IN}>
+            <Link color='green' href={C.ROUTES.SIGN_IN}>
               Login
             </Link>
           </Text>
