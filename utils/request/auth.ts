@@ -2,12 +2,10 @@ import { signIn } from 'next-auth/react';
 import axios from 'axios';
 
 import { SignUpPayload, SignUpApiResponse, SignInPayload } from '../../types/api';
-import { UNKNOWN_ERROR } from '../../constants';
-
-const API_URL = process.env.NEXT_PUBLIC_API_HOST;
+import { API_ROUTES, API_URL, UNKNOWN_ERROR } from '../../constants';
 
 export const signUpRequest = async (payload: SignUpPayload) => {
-  const { data } = await axios.post<SignUpApiResponse>(`${API_URL}/auth/sign-up`, payload);
+  const { data } = await axios.post<SignUpApiResponse>(`${API_URL}${API_ROUTES.SIGN_UP}`, payload);
   return data;
 };
 

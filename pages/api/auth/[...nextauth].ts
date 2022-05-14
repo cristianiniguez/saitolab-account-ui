@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 
 import { SignInApiResponse } from '../../../types/api';
-import { INVALID_CREDENTIALS_ERROR, ROUTES } from '../../../constants';
+import { API_ROUTES, API_URL, INVALID_CREDENTIALS_ERROR, ROUTES } from '../../../constants';
 
 const options: NextAuthOptions = {
   callbacks: {
@@ -31,7 +31,7 @@ const options: NextAuthOptions = {
 
         try {
           const { data } = await axios.post<SignInApiResponse>(
-            `${process.env.API_HOST}/auth/sign-in`,
+            `${API_URL}${API_ROUTES.SIGN_IN}`,
             null,
             {
               auth: { username: email, password },
