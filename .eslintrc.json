@@ -11,6 +11,7 @@
   "root": true,
   "rules": {
     "no-console": ["error", { "allow": ["warn", "error"] }],
+    "react/jsx-sort-props": "warn",
     "sort-keys": "error",
     "sort-destructure-keys/sort-destructure-keys": "error"
   }

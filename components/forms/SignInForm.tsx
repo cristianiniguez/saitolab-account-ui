@@ -63,7 +63,7 @@ class SignInForm extends Component<SignInFormProps> {
 
   renderForm: SignInFormConfig['component'] = ({ isSubmitting, status }) => (
     <Form>
-      <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
+      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
           <EmailInput isRequired label='Email Address' />
           <PasswordInput label='Password' />
@@ -74,17 +74,17 @@ class SignInForm extends Component<SignInFormProps> {
             </Alert>
           )}
           <Button
-            isLoading={isSubmitting}
-            type='submit'
+            _hover={{ bg: 'blue.500' }}
             bg='blue.400'
             color='white'
-            _hover={{ bg: 'blue.500' }}
+            isLoading={isSubmitting}
+            type='submit'
           >
             Sign in
           </Button>
           <Text align='center'>
             Don&apos;t have an account?{' '}
-            <Link href={C.ROUTES.SIGN_UP} color='green'>
+            <Link color='green' href={C.ROUTES.SIGN_UP}>
               Enroll
             </Link>
           </Text>

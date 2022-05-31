@@ -15,7 +15,7 @@ export default function Home() {
       <Center h='100vh'>
         <Box>
           <Heading mb={8}>Welcome to Saito Lab Accounts</Heading>
-          <HStack spacing={8} justifyContent='center'>
+          <HStack justifyContent='center' spacing={8}>
             <Button onClick={goToSignInPage}>Sign In</Button>
             <Button onClick={goToSignUpPage}>Sign Up</Button>
           </HStack>

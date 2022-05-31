@@ -74,7 +74,7 @@ class SignUpForm extends Component<SignUpFormProps> {
 
   renderForm: SignUpFormConfig['component'] = ({ isSubmitting, status }) => (
     <Form>
-      <Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
+      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
           <HStack alignItems='start'>
             <Box>
@@ -93,13 +93,13 @@ class SignUpForm extends Component<SignUpFormProps> {
             </Alert>
           )}
           <Button
-            isLoading={isSubmitting}
-            type='submit'
-            loadingText='Enrolling ...'
-            size='lg'
+            _hover={{ bg: 'blue.500' }}
             bg={'blue.400'}
             color='white'
-            _hover={{ bg: 'blue.500' }}
+            isLoading={isSubmitting}
+            loadingText='Enrolling ...'
+            size='lg'
+            type='submit'
           >
             Sign up
           </Button>
