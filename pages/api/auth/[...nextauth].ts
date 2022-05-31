@@ -2,8 +2,8 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 
-import { SignInApiResponse } from '../../../types/api';
-import { API_ROUTES, API_URL, INVALID_CREDENTIALS_ERROR, ROUTES } from '../../../constants';
+import { SignInApiResponse } from 'types/api';
+import { API_ROUTES, API_URL, INVALID_CREDENTIALS_ERROR, ROUTES } from 'constants/';
 
 const options: NextAuthOptions = {
   callbacks: {

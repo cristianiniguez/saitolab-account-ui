@@ -13,12 +13,12 @@ import {
 import { Form, Formik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 
-import { EmailInput, TextInput, PasswordInput } from '../inputs';
-import Link from '../others/Link';
-import { SignUpPayload } from '../../types/api';
-import { signInRequest, signUpRequest } from '../../utils/request/auth';
-import { getErrorMessage } from '../../utils/others/errors';
-import * as C from '../../constants';
+import { EmailInput, TextInput, PasswordInput } from 'components/inputs';
+import Link from 'components/others/Link';
+import { SignUpPayload } from 'types/api';
+import { signInRequest, signUpRequest } from 'utils/request/auth';
+import { getErrorMessage } from 'utils/others/errors';
+import * as C from 'constants/';
 
 type SignUpFormProps = {
   router: NextRouter;

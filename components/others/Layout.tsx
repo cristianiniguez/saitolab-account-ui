@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 
-import { APP_NAME } from '../../constants';
+import { APP_NAME } from 'constants/';
 
 type LayoutProps = {
   children: ReactNode;
