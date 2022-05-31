@@ -27,15 +27,15 @@ const SignInPage = () => {
   return (
     <Layout title='Sign In'>
       <Flex
-        minH='100vh'
         align='center'
-        justify='center'
         bg={useColorModeValue('gray.50', 'gray.800')}
+        justify='center'
+        minH='100vh'
       >
-        <Stack spacing={8} mx='auto' maxW='lg' py={12} px={6}>
+        <Stack maxW='lg' mx='auto' px={6} py={12} spacing={8}>
           <Stack align='center'>
             <Heading fontSize='4xl'>Sign in to your account</Heading>
-            <Text fontSize='lg' color={'gray.600'}>
+            <Text color={'gray.600'} fontSize='lg'>
               to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
             </Text>
           </Stack>

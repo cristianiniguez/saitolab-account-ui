@@ -30,12 +30,12 @@ const PasswordInput: FC<PasswordInputProps> = ({
   const [showPassword, setShowPassword] = useBoolean();
 
   return (
-    <FormControl id={id} isRequired={isRequired} isInvalid={meta.touched && !!meta.error}>
+    <FormControl id={id} isInvalid={meta.touched && !!meta.error} isRequired={isRequired}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input {...field} type={showPassword ? 'text' : 'password'} />
         <InputRightElement h='full'>
-          <Button variant='ghost' onClick={setShowPassword.toggle}>
+          <Button onClick={setShowPassword.toggle} variant='ghost'>
             <Icon as={showPassword ? FiEye : FiEyeOff} />
           </Button>
         </InputRightElement>
