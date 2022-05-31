@@ -1,8 +1,8 @@
 import { Box, Button, Center, Heading, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import Layout from '../components/others/Layout';
-import { ROUTES } from '../constants';
+import Layout from 'components/others/Layout';
+import { ROUTES } from 'constants/';
 
 export default function Home() {
   const router = useRouter();

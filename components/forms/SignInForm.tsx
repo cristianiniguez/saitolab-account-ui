@@ -4,11 +4,11 @@ import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon, Text } from '@
 import { Form, Formik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 
-import { EmailInput, PasswordInput } from '../inputs';
-import Link from '../others/Link';
-import * as C from '../../constants';
-import { signInRequest } from '../../utils/request/auth';
-import { getErrorMessage } from '../../utils/others/errors';
+import { EmailInput, PasswordInput } from 'components/inputs';
+import Link from 'components/others/Link';
+import * as C from 'constants/';
+import { signInRequest } from 'utils/request/auth';
+import { getErrorMessage } from 'utils/others/errors';
 
 type SignInFormProps = {
   router: NextRouter;
