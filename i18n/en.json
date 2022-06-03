@@ -33,5 +33,42 @@
       }
     },
     "footer": "Don't have an account? <enroll>Enroll</enroll>"
+  },
+  "signUp": {
+    "pageTitle": "Sign Up",
+    "title": "Sign up",
+    "subtitle": "to enjoy all of our cool features ✌️",
+    "form": {
+      "firstName": {
+        "label": "First Name",
+        "error": {
+          "required": "First name is required"
+        }
+      },
+      "lastName": {
+        "label": "Last Name",
+        "error": {
+          "required": "Last name is required"
+        }
+      },
+      "email": {
+        "label": "Email Address",
+        "error": {
+          "required": "Email is required",
+          "invalid": "Invalid email"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "error": {
+          "required": "Password is required"
+        }
+      },
+      "submitButton": {
+        "label": "Sign up",
+        "loading": "Enrolling ..."
+      },
+      "footer": "Already a user? <login>Login</login>"
+    }
   }
 }
