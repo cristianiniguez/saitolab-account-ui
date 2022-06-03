@@ -8,8 +8,8 @@ import SignInForm from 'components/forms/SignInForm';
 import { ROUTES } from 'constants/';
 import { getTranslationsProps } from 'utils/others/intl';
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const session = await getSession(ctx);
 
   if (session?.user) {
     return {
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, req }) =>
 
   return {
     props: {
-      ...(await getTranslationsProps(locale)),
+      ...(await getTranslationsProps(ctx)),
     },
   };
 };

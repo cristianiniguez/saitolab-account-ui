@@ -7,8 +7,8 @@ import { ROUTES } from 'constants/';
 import Layout from 'components/others/Layout';
 import { getTranslationsProps } from 'utils/others/intl';
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const session = await getSession(ctx);
 
   if (!session) {
     return {
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, req }) =>
 
   return {
     props: {
-      ...(await getTranslationsProps(locale)),
+      ...(await getTranslationsProps(ctx)),
       session,
     },
   };

@@ -7,10 +7,10 @@ import Layout from 'components/others/Layout';
 import { ROUTES } from 'constants/';
 import { getTranslationsProps } from 'utils/others/intl';
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   return {
     props: {
-      ...(await getTranslationsProps(locale)),
+      ...(await getTranslationsProps(ctx)),
     },
   };
 };
