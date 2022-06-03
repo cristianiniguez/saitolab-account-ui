@@ -1,12 +1,14 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { Flex, Stack, Link, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
+import { Flex, Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Layout from 'components/others/Layout';
 import SignInForm from 'components/forms/SignInForm';
 import { ROUTES } from 'constants/';
+import { getTranslationsProps } from 'utils/others/intl';
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
@@ -19,11 +21,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   return {
-    props: {},
+    props: {
+      ...(await getTranslationsProps(locale)),
+    },
   };
 };
 
 const SignInPage = () => {
+  const t = useTranslations();
+
   return (
     <Layout title='Sign In'>
       <Flex
@@ -34,9 +40,9 @@ const SignInPage = () => {
       >
         <Stack maxW='lg' mx='auto' px={6} py={12} spacing={8}>
           <Stack align='center'>
-            <Heading fontSize='4xl'>Sign in to your account</Heading>
+            <Heading fontSize='4xl'>{t('signIn.title')}</Heading>
             <Text color={'gray.600'} fontSize='lg'>
-              to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
+              {t('signIn.subtitle')}
             </Text>
           </Stack>
           <SignInForm />

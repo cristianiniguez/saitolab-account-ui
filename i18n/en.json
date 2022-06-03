@@ -2,9 +2,36 @@
   "common": {
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "error": {
+      "invalidCredentials": "Invalid credentials",
+      "unknown": "An unknown error occurred"
+    }
   },
   "home": {
     "title": "Welcome to Saito Lab Accounts"
+  },
+  "signIn": {
+    "title": "Sign in to your account",
+    "subtitle": "to enjoy all of our cool features ✌️",
+    "form": {
+      "email": {
+        "label": "Email Address",
+        "error": {
+          "required": "Email is required",
+          "invalid": "Invalid email"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "error": {
+          "required": "Password is required"
+        }
+      },
+      "submitButton": {
+        "label": "Sign in"
+      }
+    },
+    "footer": "Don't have an account? <enroll>Enroll</enroll>"
   }
 }

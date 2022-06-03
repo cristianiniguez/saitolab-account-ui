@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { NextRouter, withRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import { Box, Stack, Button, useColorModeValue, Alert, AlertIcon, Text } from '@chakra-ui/react';
 import { Form, Formik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
@@ -10,20 +10,81 @@ import * as C from 'constants/';
 import { signInRequest } from 'utils/request/auth';
 import { getErrorMessage } from 'utils/others/errors';
 
-type SignInFormProps = {
-  router: NextRouter;
+type SignInFormConfig = FormikConfig<{ email: string; password: string }>;
+
+const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, status }) => {
+  const t = useTranslations();
+
+  const getFormErrorMessage = (error: string) => {
+    switch (error) {
+      case C.INVALID_CREDENTIALS_ERROR:
+        return t('common.error.invalidCredentials');
+      case C.UNKNOWN_ERROR:
+      default:
+        return t('common.error.unknown');
+    }
+  };
+
+  return (
+    <Form>
+      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
+        <Stack spacing={4}>
+          <EmailInput isRequired label={t('signIn.form.email.label')} />
+          <PasswordInput label='Password' />
+          {status.error && (
+            <Alert status='error'>
+              <AlertIcon />
+              {getFormErrorMessage(status.error)}
+            </Alert>
+          )}
+          <Button
+            _hover={{ bg: 'blue.500' }}
+            bg='blue.400'
+            color='white'
+            isLoading={isSubmitting}
+            type='submit'
+          >
+            {t('signIn.form.submitButton.label')}
+          </Button>
+          <Text align='center'>
+            {t.rich('signIn.footer', {
+              enroll: children => (
+                <Link color='green' href={C.ROUTES.SIGN_UP}>
+                  {children}
+                </Link>
+              ),
+            })}
+          </Text>
+        </Stack>
+      </Box>
+    </Form>
+  );
 };
 
-type SignInFormValues = {
-  email: string;
-  password: string;
-};
+const SignInForm = () => {
+  const router = useRouter();
+  const t = useTranslations();
 
-type SignInFormConfig = FormikConfig<SignInFormValues>;
+  const getInitialValues = (): SignInFormConfig['initialValues'] => {
+    return {
+      email: '',
+      password: '',
+    };
+  };
 
-class SignInForm extends Component<SignInFormProps> {
-  handleSubmit: SignInFormConfig['onSubmit'] = async (values, { setStatus, setSubmitting }) => {
-    const { router } = this.props;
+  const getValidationSchema = (): SignInFormConfig['validationSchema'] => {
+    return Yup.object().shape({
+      email: Yup.string()
+        .email(t('signIn.form.email.error.invalid'))
+        .required(t('signIn.form.email.error.required')),
+      password: Yup.string().required(t('signIn.form.password.error.required')),
+    });
+  };
+
+  const handleSubmit: SignInFormConfig['onSubmit'] = async (
+    values,
+    { setStatus, setSubmitting },
+  ) => {
     setStatus({ error: null });
 
     try {
@@ -37,73 +98,15 @@ class SignInForm extends Component<SignInFormProps> {
     }
   };
 
-  getInitialValues(): SignInFormConfig['initialValues'] {
-    return {
-      email: '',
-      password: '',
-    };
-  }
-
-  getValidationSchema(): SignInFormConfig['validationSchema'] {
-    return Yup.object().shape({
-      email: Yup.string().email('Invalid email').required('Email is required'),
-      password: Yup.string().required('Password is required'),
-    });
-  }
-
-  getFormErrorMessage(error: string) {
-    switch (error) {
-      case C.INVALID_CREDENTIALS_ERROR:
-        return 'Invalid credentials';
-      case C.UNKNOWN_ERROR:
-      default:
-        return 'An unknown error occurred';
-    }
-  }
-
-  renderForm: SignInFormConfig['component'] = ({ isSubmitting, status }) => (
-    <Form>
-      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
-        <Stack spacing={4}>
-          <EmailInput isRequired label='Email Address' />
-          <PasswordInput label='Password' />
-          {status.error && (
-            <Alert status='error'>
-              <AlertIcon />
-              {this.getFormErrorMessage(status.error)}
-            </Alert>
-          )}
-          <Button
-            _hover={{ bg: 'blue.500' }}
-            bg='blue.400'
-            color='white'
-            isLoading={isSubmitting}
-            type='submit'
-          >
-            Sign in
-          </Button>
-          <Text align='center'>
-            Don&apos;t have an account?{' '}
-            <Link color='green' href={C.ROUTES.SIGN_UP}>
-              Enroll
-            </Link>
-          </Text>
-        </Stack>
-      </Box>
-    </Form>
+  return (
+    <Formik
+      component={SignInFormComponent}
+      initialStatus={{ error: null }}
+      initialValues={getInitialValues()}
+      onSubmit={handleSubmit}
+      validationSchema={getValidationSchema()}
+    />
   );
+};
 
-  render() {
-    return (
-      <Formik
-        component={this.renderForm}
-        initialStatus={{ error: null }}
-        initialValues={this.getInitialValues()}
-        onSubmit={this.handleSubmit}
-        validationSchema={this.getValidationSchema()}
-      />
-    );
-  }
-}
-
-export default withRouter(SignInForm);
+export default SignInForm;
