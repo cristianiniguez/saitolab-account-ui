@@ -37,7 +37,7 @@
         "label": "Sign in"
       }
     },
-    "footer": "Don't have an account? <enroll>Enroll</enroll>"
+    "footer": "Don't have an account? <link>Enroll</link>"
   },
   "signUp": {
     "pageTitle": "Sign Up",
@@ -73,7 +73,7 @@
         "label": "Sign up",
         "loading": "Enrolling ..."
       },
-      "footer": "Already a user? <login>Login</login>"
+      "footer": "Already a user? <link>Login</link>"
     }
   }
 }

@@ -48,7 +48,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
           </Button>
           <Text align='center'>
             {t.rich('signIn.footer', {
-              enroll: children => (
+              link: children => (
                 <Link color='green' href={C.ROUTES.SIGN_UP}>
                   {children}
                 </Link>

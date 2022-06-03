@@ -78,7 +78,7 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
           </Button>
           <Text align='center'>
             {t.rich('signUp.form.footer', {
-              login: children => (
+              link: children => (
                 <Link color='green' href={C.ROUTES.SIGN_IN}>
                   {children}
                 </Link>
