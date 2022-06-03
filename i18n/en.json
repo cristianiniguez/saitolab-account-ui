@@ -1,5 +1,9 @@
 {
   "common": {
+    "app": {
+      "name": "Saito Lab Accounts",
+      "title": "{pageTitle} | {name}"
+    },
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
@@ -12,6 +16,7 @@
     "title": "Welcome to Saito Lab Accounts"
   },
   "signIn": {
+    "pageTitle": "Sign In",
     "title": "Sign in to your account",
     "subtitle": "to enjoy all of our cool features ✌️",
     "form": {

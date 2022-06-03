@@ -31,7 +31,7 @@ const SignInPage = () => {
   const t = useTranslations();
 
   return (
-    <Layout title='Sign In'>
+    <Layout title={t('signIn.pageTitle')}>
       <Flex
         align='center'
         bg={useColorModeValue('gray.50', 'gray.800')}

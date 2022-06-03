@@ -1,15 +1,16 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
-
-import { APP_NAME } from 'constants/';
+import { useTranslations } from 'next-intl';
 
 type LayoutProps = {
   children: ReactNode;
   title?: string;
 };
 
-const Layout: FC<LayoutProps> = ({ children, title }) => {
-  const titleToShow = title ? `${title} | ${APP_NAME}` : APP_NAME;
+const Layout: FC<LayoutProps> = ({ children, title: pageTitle }) => {
+  const t = useTranslations();
+  const appName = t('common.app.name');
+  const titleToShow = pageTitle ? t('common.app.title', { name: appName, pageTitle }) : appName;
 
   return (
     <>
