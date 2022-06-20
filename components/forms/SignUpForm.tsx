@@ -36,7 +36,7 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
   };
 
   return (
-    <Form>
+    <Form id='sign-up-form'>
       <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
           <HStack alignItems='start'>
@@ -76,7 +76,7 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
           >
             {t('signUp.form.submitButton.label')}
           </Button>
-          <Text align='center'>
+          <Text align='center' id='sign-up-form-footer'>
             {t.rich('signUp.form.footer', {
               link: children => (
                 <Link color='green' href={C.ROUTES.SIGN_IN}>
