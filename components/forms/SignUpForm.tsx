@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { NextRouter, withRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 import {
   Box,
   HStack,
@@ -20,16 +20,85 @@ import { signInRequest, signUpRequest } from 'utils/request/auth';
 import { getErrorMessage } from 'utils/others/errors';
 import * as C from 'constants/';
 
-type SignUpFormProps = {
-  router: NextRouter;
+type SignUpFormConfig = FormikConfig<SignUpPayload>;
+
+const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, status }) => {
+  const t = useTranslations();
+
+  const getFormErrorMessage = (error: string) => {
+    switch (error) {
+      case C.INVALID_CREDENTIALS_ERROR:
+        return t('common.error.invalidCredentials');
+      case C.UNKNOWN_ERROR:
+      default:
+        return t('common.error.unknown');
+    }
+  };
+
+  return (
+    <Form>
+      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
+        <Stack spacing={4}>
+          <HStack alignItems='start'>
+            <Box>
+              <TextInput
+                id='firstName'
+                isRequired
+                label={t('signUp.form.firstName.label')}
+                name='firstName'
+              />
+            </Box>
+            <Box>
+              <TextInput
+                id='lastName'
+                isRequired
+                label={t('signUp.form.lastName.label')}
+                name='lastName'
+              />
+            </Box>
+          </HStack>
+          <EmailInput isRequired label={t('signUp.form.email.label')} />
+          <PasswordInput label={t('signUp.form.password.label')} />
+          {status.error && (
+            <Alert status='error'>
+              <AlertIcon />
+              {getFormErrorMessage(status.error)}
+            </Alert>
+          )}
+          <Button
+            _hover={{ bg: 'blue.500' }}
+            bg={'blue.400'}
+            color='white'
+            isLoading={isSubmitting}
+            loadingText={t('signUp.form.submitButton.loading')}
+            size='lg'
+            type='submit'
+          >
+            {t('signUp.form.submitButton.label')}
+          </Button>
+          <Text align='center'>
+            {t.rich('signUp.form.footer', {
+              link: children => (
+                <Link color='green' href={C.ROUTES.SIGN_IN}>
+                  {children}
+                </Link>
+              ),
+            })}
+          </Text>
+        </Stack>
+      </Box>
+    </Form>
+  );
 };
 
-type SignUpFormValues = SignUpPayload;
-type SignUpFormConfig = FormikConfig<SignUpFormValues>;
+const SignUpForm = () => {
+  const router = useRouter();
+  const t = useTranslations();
 
-class SignUpForm extends Component<SignUpFormProps> {
-  handleSubmit: SignUpFormConfig['onSubmit'] = async (values, { setStatus, setSubmitting }) => {
-    const { router } = this.props;
+  const handleSubmit: SignUpFormConfig['onSubmit'] = async (
+    values,
+    { setStatus, setSubmitting },
+  ) => {
     setStatus({ error: null });
 
     try {
@@ -44,87 +113,30 @@ class SignUpForm extends Component<SignUpFormProps> {
     }
   };
 
-  getInitialValues(): SignUpFormConfig['initialValues'] {
-    return {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-    };
-  }
+  const getInitialValues = (): SignUpFormConfig['initialValues'] => {
+    return { email: '', firstName: '', lastName: '', password: '' };
+  };
 
-  getValidationSchema(): SignUpFormConfig['validationSchema'] {
+  const getValidationSchema = (): SignUpFormConfig['validationSchema'] => {
     return Yup.object().shape({
-      email: Yup.string().email('Invalid email').required('Email is required'),
-      firstName: Yup.string().required('First name is required'),
-      lastName: Yup.string().required('Last name is required'),
-      password: Yup.string().required('Password is required'),
+      email: Yup.string()
+        .email(t('signUp.form.email.error.invalid'))
+        .required(t('signUp.form.email.error.required')),
+      firstName: Yup.string().required(t('signUp.form.firstName.error.required')),
+      lastName: Yup.string().required(t('signUp.form.lastName.error.required')),
+      password: Yup.string().required(t('signUp.form.password.error.required')),
     });
-  }
+  };
 
-  getFormErrorMessage(error: string) {
-    switch (error) {
-      case C.INVALID_CREDENTIALS_ERROR:
-        return 'Invalid credentials';
-      case C.UNKNOWN_ERROR:
-      default:
-        return 'An unknown error occurred';
-    }
-  }
-
-  renderForm: SignUpFormConfig['component'] = ({ isSubmitting, status }) => (
-    <Form>
-      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
-        <Stack spacing={4}>
-          <HStack alignItems='start'>
-            <Box>
-              <TextInput id='firstName' isRequired label='First Name' name='firstName' />
-            </Box>
-            <Box>
-              <TextInput id='lastName' isRequired label='Last Name' name='lastName' />
-            </Box>
-          </HStack>
-          <EmailInput isRequired label='Email Address' />
-          <PasswordInput label='Password' />
-          {status.error && (
-            <Alert status='error'>
-              <AlertIcon />
-              {this.getFormErrorMessage(status.error)}
-            </Alert>
-          )}
-          <Button
-            _hover={{ bg: 'blue.500' }}
-            bg={'blue.400'}
-            color='white'
-            isLoading={isSubmitting}
-            loadingText='Enrolling ...'
-            size='lg'
-            type='submit'
-          >
-            Sign up
-          </Button>
-          <Text align='center'>
-            Already a user?{' '}
-            <Link color='green' href={C.ROUTES.SIGN_IN}>
-              Login
-            </Link>
-          </Text>
-        </Stack>
-      </Box>
-    </Form>
+  return (
+    <Formik
+      component={SignUpFormComponent}
+      initialStatus={{ error: null }}
+      initialValues={getInitialValues()}
+      onSubmit={handleSubmit}
+      validationSchema={getValidationSchema()}
+    />
   );
+};
 
-  render() {
-    return (
-      <Formik
-        component={this.renderForm}
-        initialStatus={{ error: null }}
-        initialValues={this.getInitialValues()}
-        onSubmit={this.handleSubmit}
-        validationSchema={this.getValidationSchema()}
-      />
-    );
-  }
-}
-
-export default withRouter(SignUpForm);
+export default SignUpForm;
