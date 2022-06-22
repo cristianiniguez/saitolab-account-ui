@@ -25,3 +25,5 @@ describe('Sign Up Page', () => {
     });
   });
 });
+
+export {};
