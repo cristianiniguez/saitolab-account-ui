@@ -29,7 +29,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
     <Form id='sign-in-form'>
       <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
-          <EmailInput isRequired label={t('signIn.form.email.label')} />
+          <EmailInput label={t('signIn.form.email.label')} />
           <PasswordInput label='Password' />
           {status.error && (
             <Alert status='error'>

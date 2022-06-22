@@ -41,23 +41,13 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
         <Stack spacing={4}>
           <HStack alignItems='start'>
             <Box>
-              <TextInput
-                id='firstName'
-                isRequired
-                label={t('signUp.form.firstName.label')}
-                name='firstName'
-              />
+              <TextInput id='firstName' label={t('signUp.form.firstName.label')} name='firstName' />
             </Box>
             <Box>
-              <TextInput
-                id='lastName'
-                isRequired
-                label={t('signUp.form.lastName.label')}
-                name='lastName'
-              />
+              <TextInput id='lastName' label={t('signUp.form.lastName.label')} name='lastName' />
             </Box>
           </HStack>
-          <EmailInput isRequired label={t('signUp.form.email.label')} />
+          <EmailInput label={t('signUp.form.email.label')} />
           <PasswordInput label={t('signUp.form.password.label')} />
           {status.error && (
             <Alert status='error'>

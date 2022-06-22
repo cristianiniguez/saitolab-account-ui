@@ -21,6 +21,12 @@ describe('Sign In Page', () => {
       cy.get('#sign-in-form-footer').find('a').click();
       cy.url().should('include', '/sign-up');
     });
+
+    it('shows error messages when submitting immediately', () => {
+      cy.get('#sign-in-form').find('button[type="submit"]').click();
+      cy.get('#sign-in-form').find('#email-feedback').should('exist');
+      cy.get('#sign-in-form').find('#password-feedback').should('exist');
+    });
   });
 });
 

@@ -23,6 +23,14 @@ describe('Sign Up Page', () => {
       cy.get('#sign-up-form-footer').find('a').click();
       cy.url().should('include', '/sign-in');
     });
+
+    it('shows error messages when submitting immediately', () => {
+      cy.get('#sign-up-form').find('button[type="submit"]').click();
+      cy.get('#sign-up-form').find('#firstName-feedback').should('exist');
+      cy.get('#sign-up-form').find('#lastName-feedback').should('exist');
+      cy.get('#sign-up-form').find('#email-feedback').should('exist');
+      cy.get('#sign-up-form').find('#password-feedback').should('exist');
+    });
   });
 });
 
