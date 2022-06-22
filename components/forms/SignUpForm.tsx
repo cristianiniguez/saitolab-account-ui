@@ -36,28 +36,18 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
   };
 
   return (
-    <Form>
+    <Form id='sign-up-form'>
       <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
           <HStack alignItems='start'>
             <Box>
-              <TextInput
-                id='firstName'
-                isRequired
-                label={t('signUp.form.firstName.label')}
-                name='firstName'
-              />
+              <TextInput id='firstName' label={t('signUp.form.firstName.label')} name='firstName' />
             </Box>
             <Box>
-              <TextInput
-                id='lastName'
-                isRequired
-                label={t('signUp.form.lastName.label')}
-                name='lastName'
-              />
+              <TextInput id='lastName' label={t('signUp.form.lastName.label')} name='lastName' />
             </Box>
           </HStack>
-          <EmailInput isRequired label={t('signUp.form.email.label')} />
+          <EmailInput label={t('signUp.form.email.label')} />
           <PasswordInput label={t('signUp.form.password.label')} />
           {status.error && (
             <Alert status='error'>
@@ -76,7 +66,7 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
           >
             {t('signUp.form.submitButton.label')}
           </Button>
-          <Text align='center'>
+          <Text align='center' id='sign-up-form-footer'>
             {t.rich('signUp.form.footer', {
               link: children => (
                 <Link color='green' href={C.ROUTES.SIGN_IN}>

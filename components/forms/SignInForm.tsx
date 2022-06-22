@@ -26,10 +26,10 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
   };
 
   return (
-    <Form>
+    <Form id='sign-in-form'>
       <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
         <Stack spacing={4}>
-          <EmailInput isRequired label={t('signIn.form.email.label')} />
+          <EmailInput label={t('signIn.form.email.label')} />
           <PasswordInput label='Password' />
           {status.error && (
             <Alert status='error'>
@@ -46,7 +46,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
           >
             {t('signIn.form.submitButton.label')}
           </Button>
-          <Text align='center'>
+          <Text align='center' id='sign-in-form-footer'>
             {t.rich('signIn.footer', {
               link: children => (
                 <Link color='green' href={C.ROUTES.SIGN_UP}>

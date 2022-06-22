@@ -15,22 +15,16 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 type PasswordInputProps = {
   id?: string;
-  isRequired?: boolean;
   label: string;
   name?: string;
 };
 
-const PasswordInput: FC<PasswordInputProps> = ({
-  id = 'password',
-  isRequired = true,
-  label,
-  name = 'password',
-}) => {
+const PasswordInput: FC<PasswordInputProps> = ({ id = 'password', label, name = 'password' }) => {
   const [field, meta] = useField(name);
   const [showPassword, setShowPassword] = useBoolean();
 
   return (
-    <FormControl id={id} isInvalid={meta.touched && !!meta.error} isRequired={isRequired}>
+    <FormControl id={id} isInvalid={meta.touched && !!meta.error}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input {...field} type={showPassword ? 'text' : 'password'} />
