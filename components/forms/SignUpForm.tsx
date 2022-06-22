@@ -56,12 +56,10 @@ const SignUpFormComponent: SignUpFormConfig['component'] = ({ isSubmitting, stat
             </Alert>
           )}
           <Button
-            _hover={{ bg: 'blue.500' }}
-            bg={'blue.400'}
             color='white'
+            colorScheme='green'
             isLoading={isSubmitting}
             loadingText={t('signUp.form.submitButton.loading')}
-            size='lg'
             type='submit'
           >
             {t('signUp.form.submitButton.label')}

@@ -37,13 +37,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
               {getFormErrorMessage(status.error)}
             </Alert>
           )}
-          <Button
-            _hover={{ bg: 'blue.500' }}
-            bg='blue.400'
-            color='white'
-            isLoading={isSubmitting}
-            type='submit'
-          >
+          <Button color='white' colorScheme='green' isLoading={isSubmitting} type='submit'>
             {t('signIn.form.submitButton.label')}
           </Button>
           <Text align='center' id='sign-in-form-footer'>

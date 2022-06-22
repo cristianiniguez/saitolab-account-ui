@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Flex, Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Layout from 'components/others/Layout';
+import Favicon from 'components/others/Favicon';
 import SignUpForm from 'components/forms/SignUpForm';
 import { ROUTES } from 'constants/';
 import { getTranslationsProps } from 'utils/others/intl';
@@ -39,8 +40,9 @@ const SignUpPage = () => {
         minH='100vh'
       >
         <Stack maxW='lg' mx='auto' px={6} py={12} spacing={8}>
+          <Favicon mx='auto' />
           <Stack align='center'>
-            <Heading fontSize='4xl' textAlign='center'>
+            <Heading color='green.900' fontSize='4xl' textAlign='center'>
               {t('signUp.title')}
             </Heading>
             <Text color={'gray.600'} fontSize='lg'>
