@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import { useTranslations } from 'next-intl';
+import { useColorModeValue, VStack } from '@chakra-ui/react';
 
 type LayoutProps = {
   children: ReactNode;
@@ -17,7 +18,9 @@ const Layout: FC<LayoutProps> = ({ children, title: pageTitle }) => {
       <Head>
         <title>{titleToShow}</title>
       </Head>
-      {children}
+      <VStack as='main' bg={useColorModeValue('green.50', 'gray.800')} minH='100vh'>
+        {children}
+      </VStack>
     </>
   );
 };

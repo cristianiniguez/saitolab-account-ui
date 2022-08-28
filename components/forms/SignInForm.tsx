@@ -27,7 +27,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
 
   return (
     <Form id='sign-in-form'>
-      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg'>
+      <Box bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8} rounded='lg' w='md'>
         <Stack spacing={4}>
           <EmailInput label={t('signIn.form.email.label')} />
           <PasswordInput label='Password' />
@@ -37,13 +37,7 @@ const SignInFormComponent: SignInFormConfig['component'] = ({ isSubmitting, stat
               {getFormErrorMessage(status.error)}
             </Alert>
           )}
-          <Button
-            _hover={{ bg: 'blue.500' }}
-            bg='blue.400'
-            color='white'
-            isLoading={isSubmitting}
-            type='submit'
-          >
+          <Button color='white' colorScheme='green' isLoading={isSubmitting} type='submit'>
             {t('signIn.form.submitButton.label')}
           </Button>
           <Text align='center' id='sign-in-form-footer'>

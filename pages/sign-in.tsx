@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { Flex, Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { Stack, Heading, Text, Center } from '@chakra-ui/react';
 
 import Layout from 'components/others/Layout';
+import Favicon from 'components/others/Favicon';
 import SignInForm from 'components/forms/SignInForm';
 import { ROUTES } from 'constants/';
 import { getTranslationsProps } from 'utils/others/intl';
@@ -32,22 +33,20 @@ const SignInPage = () => {
 
   return (
     <Layout title={t('signIn.pageTitle')}>
-      <Flex
-        align='center'
-        bg={useColorModeValue('gray.50', 'gray.800')}
-        justify='center'
-        minH='100vh'
-      >
+      <Center flex={1}>
         <Stack maxW='lg' mx='auto' px={6} py={12} spacing={8}>
+          <Favicon mx='auto' />
           <Stack align='center'>
-            <Heading fontSize='4xl'>{t('signIn.title')}</Heading>
+            <Heading color='green.900' fontSize='4xl'>
+              {t('signIn.title')}
+            </Heading>
             <Text color={'gray.600'} fontSize='lg'>
               {t('signIn.subtitle')}
             </Text>
           </Stack>
           <SignInForm />
         </Stack>
-      </Flex>
+      </Center>
     </Layout>
   );
 };
